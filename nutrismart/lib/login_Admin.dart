@@ -92,7 +92,7 @@ class LoginAdmin extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: const Color(0xFF0A1F1F), // Ganti warna di sini
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -100,7 +100,10 @@ class LoginAdmin extends StatelessWidget {
                   ),
                   child: const Text(
                     'Login',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white, // Pastikan teks tetap terlihat
+                    ),
                   ),
                 ),
               ),
