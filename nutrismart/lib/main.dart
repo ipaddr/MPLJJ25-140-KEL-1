@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'login_admin.dart'; // <- sesuaikan nama file yang baru
+import 'Register_Admin.dart';
+import 'login_Admin.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'NutriSmart',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      home: const LoginAdmin(), // <- sesuaikan nama class yang baru
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const RegisterAdmin(),
+        '/login': (context) => const LoginAdmin(), // sesuaikan dengan file login
+      },
     );
   }
 }

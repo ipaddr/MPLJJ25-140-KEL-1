@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoginAdmin extends StatelessWidget {
-  const LoginAdmin({super.key});
+class RegisterAdmin extends StatelessWidget {
+  const RegisterAdmin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +17,17 @@ class LoginAdmin extends StatelessWidget {
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
                 fontStyle: FontStyle.italic,
+                color: Colors.black87,
               ),
             ),
             const SizedBox(height: 20),
             SizedBox(
               height: 200,
-              child: Image.asset('assets/Images/login_admin.png'),
+              child: Image.asset('assets/Images/register_admin.png'),
             ),
             const SizedBox(height: 20),
             const Text(
-              'Welcome back!',
+              'Lets join us now !',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
@@ -39,7 +40,11 @@ class LoginAdmin extends StatelessWidget {
                 children: [
                   _buildTextField(Icons.email, 'Email'),
                   const SizedBox(height: 12),
+                  _buildTextField(Icons.person, 'Nama Lengkap'),
+                  const SizedBox(height: 12),
                   _buildTextField(Icons.lock, 'Password', obscureText: true),
+                  const SizedBox(height: 12),
+                  _buildTextField(Icons.phone, 'Nomor Telp'),
                   const SizedBox(height: 24),
                   SizedBox(
                     width: double.infinity,
@@ -52,10 +57,10 @@ class LoginAdmin extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        // Tambahkan logika login jika diperlukan
+                        // Tambahkan logika untuk pendaftaran
                       },
                       child: const Text(
-                        'Login',
+                        'Daftar',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ),
@@ -64,20 +69,21 @@ class LoginAdmin extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Belum punya akun? '),
+                      const Text('Already join NutriSmart? '),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/register');
+                          // Navigasi ke halaman login admin
+                          Navigator.pushNamed(context, '/login');
                         },
                         child: const Text(
-                          'Register',
+                          'Login',
                           style: TextStyle(
-                            color: Color.fromARGB(255, 1, 119, 119),
+                            color: Color.fromARGB(255, 1, 119, 107),
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
                           ),
                         ),
-                      ),
+                      )
                     ],
                   )
                 ],
@@ -93,7 +99,7 @@ class LoginAdmin extends StatelessWidget {
     return TextField(
       obscureText: obscureText,
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: const Color.fromARGB(255, 2, 117, 106)),
+        prefixIcon: Icon(icon, color: const Color.fromARGB(255, 0, 116, 104)),
         hintText: hintText,
         filled: true,
         fillColor: Colors.teal.shade50,
