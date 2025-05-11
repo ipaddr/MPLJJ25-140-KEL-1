@@ -22,9 +22,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // Splash screen ditampilkan pertama kali
-      initialRoute: '/',
+      initialRoute: '/otp',
       routes: {
-        '/': (context) => const SplashScreen(),
         '/login': (context) => const LoginScreen(),
         '/otp': (context) => const OTPScreen(),
         '/register_guru': (context) => const RegisterGuruPage(),

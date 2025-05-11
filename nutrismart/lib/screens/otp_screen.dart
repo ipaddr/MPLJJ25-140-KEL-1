@@ -75,15 +75,17 @@ class OTPScreen extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF0F2F27),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 60, vertical: 14),
+                  padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
                 child: const Text(
                   'Login',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white, // Warna tulisan putih
+                  ),
                 ),
               ),
               const SizedBox(height: 16),

@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF1F1),
+      backgroundColor: const Color(0xFFF9F9F9), // konsisten dengan RegisterGuruPage
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 60),
@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const Text(
                 'NutriSmart',
                 style: TextStyle(
+                  color: Color(0xFF2F3D35), // hijau tua
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
@@ -33,13 +34,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 40),
               Image.asset(
-                'assets/images/login_illustration.png', // Pastikan kamu punya gambar ini
+                'assets/images/login_illustration.png',
                 height: 200,
               ),
               const SizedBox(height: 30),
               const Text(
                 'Continue to your account',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16, color: Colors.black87),
               ),
               const SizedBox(height: 20),
               TextField(
@@ -94,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 10),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: const Color(0xFF2F3D35), // warna gelap
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -103,7 +104,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   // Tambahkan fungsi login
                 },
-                child: const Text('Login'),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
+                    color: Colors.white, // warna teks tombol
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const SizedBox(height: 20),
               GestureDetector(
@@ -117,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextSpan(
                         text: 'Register',
                         style: TextStyle(
-                          color: Colors.deepPurple,
+                          color: Color(0xFF2F3D35), // warna sama dengan judul
                           fontWeight: FontWeight.bold,
                         ),
                       )
