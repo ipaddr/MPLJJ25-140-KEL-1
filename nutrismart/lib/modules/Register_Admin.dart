@@ -58,6 +58,9 @@ class RegisterAdmin extends StatelessWidget {
                       ),
                       onPressed: () {
                         // Tambahkan logika untuk pendaftaran
+
+                        // Setelah berhasil daftar, langsung ke dashboard
+                        Navigator.pushReplacementNamed(context, '/dashboard');
                       },
                       child: const Text(
                         'Daftar',
