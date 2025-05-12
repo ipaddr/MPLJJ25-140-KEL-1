@@ -1,16 +1,17 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const db = require('./config/firebaseConfig');
+const authRoutes = require('./routes/authRoutes');
 
 dotenv.config();
 
 const app = express();
+app.use(express.json());  // Untuk parsing JSON
+
+// Menggunakan rute untuk auth
+app.use('/auth', authRoutes);
+
+// Memulai server
 const PORT = process.env.PORT || 5000;
-
-app.get('/', (req, res) => {
-    res.send('NutriSmart Backend is Running');
-});
-
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server berjalan di port ${PORT}`);
 });
