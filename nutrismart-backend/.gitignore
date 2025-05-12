@@ -1,0 +1,24 @@
+# Node.js
+node_modules/
+
+# Firebase Service Account Key (Do not commit this to version control)
+serviceAccountKey.json
+
+# Log files
+*.log
+
+# Environment variable files
+.env
+
+# MacOS system files
+.DS_Store
+
+# IDE settings (for VSCode, adjust if needed)
+.vscode/
+
+# Build files
+dist/
+build/
+
+# Flutter build files
+flutter/
