@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
-import 'modules/login_Admin.dart';
-import 'modules/Register_Admin.dart';
-import 'modules/dashboard_admin.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+// Import screens
+import 'screens/Dashboard/dashboard_admin.dart';
+import 'screens/Guru/DataGuru.dart';
+import 'screens/Guru/TambahDataGuru.dart';
+
+
+
 
 void main() {
   runApp(const MyApp());
@@ -14,17 +20,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'NutriSmart',
+      title: 'NutriSmart Admin',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        scaffoldBackgroundColor: const Color(0xfff8f8f8),
+        textTheme: GoogleFonts.poppinsTextTheme(),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+        useMaterial3: true,
       ),
-      // Set awal halaman login
-      home: const LoginAdmin(),
-      // Tambahkan semua rute di sini
+      initialRoute: '/',
       routes: {
-        '/login': (context) => const LoginAdmin(),
-        '/register': (context) => const RegisterAdmin(),
-        '/dashboard': (context) => const DashboardAdmin(),
+        '/': (context) => const DashboardPage(),            // Beranda dashboard   // Halaman Update Admin
+        '/data-guru': (context) => DataGuru(),  
+        '/tambah-data-guru': (context) => Tambahdataguru() 
+              // Halaman Data Guru
       },
     );
   }
