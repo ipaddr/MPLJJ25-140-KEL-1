@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'screens/login_screen.dart';
 import 'screens/otp_screen.dart';
 import 'screens/register_guru.dart';
 import 'screens/splash_screen.dart';
+=======
+import 'modules/login_Admin.dart';
+import 'modules/Register_Admin.dart';
+import 'modules/dashboard_admin.dart';
+>>>>>>> 4a93d099c76e2789e166682cda00d513c1babf42
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+<<<<<<< HEAD
       debugShowCheckedModeBanner: false, // Hilangkan debug banner
       title: 'NutriSmart',
       theme: ThemeData(
@@ -28,6 +35,20 @@ class MyApp extends StatelessWidget {
         '/otp': (context) => const OTPScreen(),
         '/register_guru': (context) => const RegisterGuruPage(),
         '/home': (context) => const MyHomePage(title: 'NutriSmart Home'),
+=======
+      debugShowCheckedModeBanner: false,
+      title: 'NutriSmart',
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+      ),
+      // Set awal halaman login
+      home: const LoginAdmin(),
+      // Tambahkan semua rute di sini
+      routes: {
+        '/login': (context) => const LoginAdmin(),
+        '/register': (context) => const RegisterAdmin(),
+        '/dashboard': (context) => const DashboardAdmin(),
+>>>>>>> 4a93d099c76e2789e166682cda00d513c1babf42
       },
     );
   }
