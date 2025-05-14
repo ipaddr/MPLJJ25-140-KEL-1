@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // Halaman awal aplikasi diubah ke WelcomeScreen
-      initialRoute: '/login',
+      initialRoute: '/register_guru',
       routes: {
         // Untuk user guru
         '/login': (context) => const LoginGuru(),
