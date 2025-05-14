@@ -31,7 +31,7 @@ class _RegisterGuruPageState extends State<RegisterGuruPage> {
               ),
               const SizedBox(height: 20),
               Image.asset(
-                'assets/images/teacher.png', // ganti sesuai path gambar Anda
+                'assets/images/register_guru.png', // ganti sesuai path gambar Anda
                 height: 200,
               ),
               const SizedBox(height: 16),

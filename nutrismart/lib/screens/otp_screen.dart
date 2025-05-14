@@ -33,7 +33,7 @@ class OTPScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Image.asset(
-                'assets/images/otp_illustration.png',
+                'assets/images/otp_guru.png',
                 height: 200,
               ),
               const SizedBox(height: 20),
