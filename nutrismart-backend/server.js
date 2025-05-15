@@ -1,15 +1,22 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors'); // ✅ Tambahkan ini
 const authRoutes = require('./routes/authRoutes');
-const adminRoutes = require('./routes/adminRoutes'); 
+const adminRoutes = require('./routes/adminRoutes');
+
 dotenv.config();
 
 const app = express();
-app.use(express.json());  // Untuk parsing JSON
+
+// ✅ Aktifkan CORS untuk semua origin
+app.use(cors());
+
+// ✅ Parsing JSON dari body request
+app.use(express.json());
 
 // Menggunakan rute untuk auth dan admin
 app.use('/auth', authRoutes);
-app.use('/admin', adminRoutes);  // Rute admin
+app.use('/admin', adminRoutes);
 
 // Memulai server
 const PORT = process.env.PORT || 5000;

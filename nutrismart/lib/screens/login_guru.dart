@@ -6,10 +6,10 @@ class LoginGuru extends StatefulWidget {
   const LoginGuru({super.key});
 
   @override
-  State<LoginGuru> createState() => _LoginAdminState();
+  State<LoginGuru> createState() => _LoginGuruState();
 }
 
-class _LoginAdminState extends State<LoginGuru> {
+class _LoginGuruState extends State<LoginGuru> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -24,8 +24,7 @@ class _LoginAdminState extends State<LoginGuru> {
     super.dispose();
   }
 
-  // 🔗 Fungsi untuk login ke backend
-  Future<void> loginAdmin(String email, String password) async {
+  Future<void> loginGuru(String email, String password) async {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -33,23 +32,26 @@ class _LoginAdminState extends State<LoginGuru> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.1.10:8000/api/login'), // GANTI sesuai IP backend kamu
+        Uri.parse('http://192.168.100.125:5000/auth/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email, 'password': password}),
       );
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        print('Login sukses: $data');
+      final data = jsonDecode(response.body);
 
-        // TODO: simpan token, navigasi ke halaman utama
+      if (response.statusCode == 200 && data['status'] == 'success') {
+        // Simpan token jika ada
+        String token = data['token'] ?? '';
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Login berhasil!')),
         );
+
+        // TODO: Navigasi ke dashboard guru
+        Navigator.pushReplacementNamed(context, '/dashboard_guru');
       } else {
-        final res = jsonDecode(response.body);
         setState(() {
-          _errorMessage = res['message'] ?? 'Login gagal';
+          _errorMessage = data['message'] ?? 'Login gagal';
         });
       }
     } catch (e) {
@@ -123,7 +125,7 @@ class _LoginAdminState extends State<LoginGuru> {
                             ? null
                             : () {
                                 if (_formKey.currentState!.validate()) {
-                                  loginAdmin(emailController.text, passwordController.text);
+                                  loginGuru(emailController.text, passwordController.text);
                                 }
                               },
                         child: _isLoading
@@ -182,7 +184,7 @@ class _LoginAdminState extends State<LoginGuru> {
         return null;
       },
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: const Color.fromARGB(255, 2, 117, 106)),
+        prefixIcon: Icon(icon, color: const Color.fromARGB(164, 2, 117, 106)),
         hintText: hintText,
         filled: true,
         fillColor: Colors.teal.shade50,

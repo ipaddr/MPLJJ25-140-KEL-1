@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class RegisterGuruPage extends StatefulWidget {
   const RegisterGuruPage({super.key});
@@ -8,12 +10,77 @@ class RegisterGuruPage extends StatefulWidget {
 }
 
 class _RegisterGuruPageState extends State<RegisterGuruPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nikController = TextEditingController();
+  final TextEditingController namaController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController noTelpController = TextEditingController();
+  final TextEditingController sekolahController = TextEditingController();
+
   bool _obscurePassword = true;
+
+  Future<void> _registerGuru() async {
+    final url = Uri.parse("http://localhost:5000/auth/register");
+
+    // Validasi form kosong
+    if (emailController.text.isEmpty ||
+        nikController.text.isEmpty ||
+        namaController.text.isEmpty ||
+        passwordController.text.isEmpty ||
+        noTelpController.text.isEmpty ||
+        sekolahController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Semua field harus diisi!")),
+      );
+      return;
+    }
+
+    // JSON payload
+    final bodyData = {
+      "email": emailController.text,
+      "nik": nikController.text,
+      "name": namaController.text,
+      "password": passwordController.text,
+      "no_telp": noTelpController.text,
+      "sekolah": sekolahController.text,
+    };
+
+    print("Mengirim data ke backend: $bodyData");
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(bodyData),
+      );
+
+      print("Status code: ${response.statusCode}");
+      print("Response body: ${response.body}");
+
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode == 200 && data["status"] == "success") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Pendaftaran berhasil!")),
+        );
+        Navigator.pop(context); // Navigasi kembali ke login atau halaman sebelumnya
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(data["message"] ?? "Pendaftaran gagal.")),
+        );
+      }
+    } catch (e) {
+      print("Error saat register: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Terjadi kesalahan: $e")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9), // warna latar seperti di desain
+      backgroundColor: const Color(0xFFF9F9F9),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
@@ -26,38 +93,38 @@ class _RegisterGuruPageState extends State<RegisterGuruPage> {
                   fontSize: 28,
                   fontFamily: 'Georgia',
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF2F3D35), // warna hijau tua
+                  color: Color(0xFF2F3D35),
                 ),
               ),
               const SizedBox(height: 20),
               Image.asset(
-                'assets/images/register_guru.png', // ganti sesuai path gambar Anda
+                'assets/images/register_guru.png',
                 height: 200,
               ),
               const SizedBox(height: 16),
               const Text(
-                'Lets join us now !',
+                'Let\'s join us now!',
                 style: TextStyle(fontSize: 16, color: Colors.black87),
               ),
               const SizedBox(height: 24),
 
               // Input Fields
-              _buildInputField(icon: Icons.email, hint: "Email"),
-              _buildInputField(icon: Icons.credit_card, hint: "NIK"),
-              _buildInputField(icon: Icons.person, hint: "Nama Lengkap"),
+              _buildInputField(controller: emailController, icon: Icons.email, hint: "Email"),
+              _buildInputField(controller: nikController, icon: Icons.credit_card, hint: "NIK"),
+              _buildInputField(controller: namaController, icon: Icons.person, hint: "Nama Lengkap"),
               _buildPasswordField(),
-              _buildInputField(icon: Icons.phone, hint: "Nomor Telp"),
-              _buildInputField(icon: Icons.school, hint: "Sekolah"),
+              _buildInputField(controller: noTelpController, icon: Icons.phone, hint: "Nomor Telp"),
+              _buildInputField(controller: sekolahController, icon: Icons.school, hint: "Sekolah"),
 
               const SizedBox(height: 24),
+
+              // Tombol DAFTAR
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // logika daftar
-                  },
+                  onPressed: _registerGuru,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1F2D26), // warna gelap
+                    backgroundColor: const Color(0xFF1F2D26),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -73,11 +140,12 @@ class _RegisterGuruPageState extends State<RegisterGuruPage> {
                   ),
                 ),
               ),
+
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Text("Already join NutriSmart? "),
+                  Text("Sudah punya akun? "),
                   Text(
                     "Login",
                     style: TextStyle(
@@ -94,7 +162,11 @@ class _RegisterGuruPageState extends State<RegisterGuruPage> {
     );
   }
 
-  Widget _buildInputField({required IconData icon, required String hint}) {
+  Widget _buildInputField({
+    required TextEditingController controller,
+    required IconData icon,
+    required String hint,
+  }) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
@@ -103,6 +175,7 @@ class _RegisterGuruPageState extends State<RegisterGuruPage> {
         boxShadow: const [BoxShadow(blurRadius: 6, color: Colors.black12)],
       ),
       child: TextField(
+        controller: controller,
         decoration: InputDecoration(
           hintText: hint,
           prefixIcon: Icon(icon, color: Colors.grey[700]),
@@ -122,6 +195,7 @@ class _RegisterGuruPageState extends State<RegisterGuruPage> {
         boxShadow: const [BoxShadow(blurRadius: 6, color: Colors.black12)],
       ),
       child: TextField(
+        controller: passwordController,
         obscureText: _obscurePassword,
         decoration: InputDecoration(
           hintText: "Password",
