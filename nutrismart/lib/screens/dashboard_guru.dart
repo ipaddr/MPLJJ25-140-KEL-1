@@ -22,7 +22,10 @@ class DashboardGuru extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: 'Agustini',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                        ),
                       )
                     ],
                   ),
@@ -68,7 +71,12 @@ class DashboardGuru extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text('Lihat Detail'),
+                    child: const Text(
+                      'Lihat Detail',
+                      style: TextStyle(
+                        color: Color.fromARGB(252, 255, 255, 255),
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -104,7 +112,10 @@ class DashboardGuru extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 30),
-                const Text('Cek Lokasi Pendistribusian', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                const Text(
+                  'Cek Lokasi Pendistribusian',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
                 const SizedBox(height: 8),
                 TextField(
                   decoration: InputDecoration(
@@ -137,8 +148,14 @@ class DashboardGuru extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text('Kamu mungkin suka', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                    Text('Lihat semua', style: TextStyle(color: Colors.teal)),
+                    Text(
+                      'Kamu mungkin suka',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'Lihat semua',
+                      style: TextStyle(color: Colors.teal),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -148,7 +165,7 @@ class DashboardGuru extends StatelessWidget {
                     _articleCard(),
                     _articleCard(),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -178,7 +195,11 @@ class DashboardGuru extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             title,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, shadows: [Shadow(blurRadius: 2)]),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              shadows: [Shadow(blurRadius: 2)],
+            ),
             textAlign: TextAlign.center,
           ),
         ),

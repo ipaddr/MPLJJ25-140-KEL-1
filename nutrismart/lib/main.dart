@@ -6,7 +6,8 @@ import 'screens/otp_screen.dart';
 import 'screens/register_guru.dart';
 import 'screens/splash_screen.dart';
 import 'modules/dashboard_admin.dart';
-import 'screens/welcome_screen.dart'; 
+import 'screens/welcome_screen.dart';
+import 'screens/dashboard_guru.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,22 +26,27 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      // Halaman awal aplikasi diubah ke WelcomeScreen
-      initialRoute: '/register_guru',
+      initialRoute: '/splash', // Tampilkan Splash Screen saat pertama dibuka
       routes: {
+        // Splash screen
+        '/splash': (context) => const SplashScreen(),
+
+        // Welcome screen
+        '/welcome': (context) => const WelcomeScreen(),
+
         // Untuk user guru
         '/login': (context) => const LoginGuru(),
         '/otp': (context) => const OTPScreen(),
         '/register_guru': (context) => const RegisterGuruPage(),
-        '/home': (context) => const MyHomePage(title: 'NutriSmart Home'),
+        '/dashboard_guru': (context) => const DashboardGuru(),
 
         // Untuk admin
         '/login_admin': (context) => const LoginAdmin(),
         '/register_admin': (context) => const RegisterAdmin(),
         '/dashboard': (context) => const DashboardAdmin(),
 
-        // Welcome screen route
-        '/welcome': (context) => const WelcomeScreen(),
+        // Contoh halaman home
+        '/home': (context) => const MyHomePage(title: 'NutriSmart Home'),
       },
     );
   }

@@ -49,12 +49,15 @@ class WelcomeScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // Images
+            // Images (dibatasi agar tidak terlalu besar)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Image.asset(
-                'assets/images/nutrismart_food.png', // Ganti dengan path yang sesuai
-                fit: BoxFit.cover,
+              child: SizedBox(
+                height: 200, // Atur tinggi agar gambar tidak terlalu besar
+                child: Image.asset(
+                  'assets/images/nutrismart_food.png',
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
 
@@ -78,6 +81,7 @@ class WelcomeScreen extends StatelessWidget {
                   'I HAVE A NUTRISMART ACCOUNT',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
               ),

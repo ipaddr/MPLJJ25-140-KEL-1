@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Navigasi otomatis ke halaman login setelah 3 detik
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.pushReplacementNamed(context, '/welcome');
     });
   }
 
@@ -27,24 +27,10 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           // Gambar background
           Image.asset(
-            'assets/images/splash_background.png',
+            'assets/images/splash_screen.png',
             fit: BoxFit.cover,
           ),
-          // Overlay dan teks
-          Container(
-            color: Colors.black.withOpacity(0.6),
-            child: Center(
-              child: Text(
-                'NutriSmart',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          )
+          
         ],
       ),
     );
