@@ -1,13 +1,12 @@
 const express = require('express');
 const { registerUser, loginUser, generateOtp, verifyOtp } = require('../controllers/authController');
-const { validateRegister, validateLogin, validate } = require('../middleware/validation');
 const router = express.Router();
 
-// Route untuk register pengguna (guru/admin)
-router.post('/register', validateRegister, validate, registerUser);
+// Route untuk register pengguna (admin/guru)
+router.post('/register', registerUser);
 
-// Route untuk login pengguna (guru/admin)
-router.post('/login', validateLogin, validate, loginUser);
+// Route untuk login pengguna (admin/guru)
+router.post('/login', loginUser);
 
 // Route untuk generate OTP (hanya admin)
 router.post('/generate-otp', generateOtp);

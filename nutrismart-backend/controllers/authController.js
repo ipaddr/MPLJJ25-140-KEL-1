@@ -1,11 +1,12 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const otpGenerator = require('otp-generator');
-const User = require('../models/User');  // Pastikan Anda memiliki model User yang sesuai untuk menyimpan data pengguna
+const User = require('../models/User');
+const sendOtpEmail = require('../config/nodemailer'); // Import Nodemailer
 
 // Fungsi untuk register pengguna (guru/admin)
 const registerUser = async (req, res) => {
-    const { email, password, name, role } = req.body;
+    const { email, password, name, phoneNumber, nik, address, school, role } = req.body;
 
     try {
         // Cek apakah email sudah terdaftar
@@ -22,8 +23,13 @@ const registerUser = async (req, res) => {
             email,
             name,
             password: hashedPassword,
+            phoneNumber,
+            nik,
+            address,
+            school,
             role: role || 'guru',  // Default role: guru
-            otpVerified: false,    // Tambahkan kolom untuk verifikasi OTP
+            otpVerified: false,
+            createdAt: new Date()
         });
 
         res.status(201).json({ message: 'User berhasil didaftarkan', userId: userRef.id });
@@ -51,17 +57,8 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ message: 'Password salah' });
         }
 
-        // Verifikasi OTP untuk admin
-        if (user.role === 'admin' && !user.otpVerified) {
-            return res.status(400).json({ message: 'Admin perlu melakukan verifikasi OTP' });
-        }
-
         // Generate JWT token
-        const token = jwt.sign(
-            { userId: userSnapshot.docs[0].id, role: user.role },
-            process.env.JWT_SECRET,
-            { expiresIn: '1h' }
-        );
+        const token = jwt.sign({ userId: userSnapshot.docs[0].id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.status(200).json({ message: 'Login berhasil', token });
     } catch (error) {
@@ -69,28 +66,29 @@ const loginUser = async (req, res) => {
     }
 };
 
-// Fungsi untuk generate dan kirim OTP untuk admin
+// Fungsi untuk generate OTP (hanya untuk admin)
 const generateOtp = async (req, res) => {
     const { email } = req.body;
 
     try {
-        // Cek apakah email admin terdaftar
+        // Cek apakah email admin atau guru
         const userSnapshot = await User.where('email', '==', email).get();
-        if (userSnapshot.empty || userSnapshot.docs[0].data().role !== 'admin') {
-            return res.status(404).json({ message: 'Admin tidak ditemukan' });
+        if (userSnapshot.empty) {
+            return res.status(404).json({ message: 'Pengguna tidak ditemukan' });
         }
 
+        const user = userSnapshot.docs[0].data();
         const otp = otpGenerator.generate(6, { digits: true, upperCaseAlphabets: false, specialChars: false });
         const userId = userSnapshot.docs[0].id;
 
-        // Simpan OTP di Firestore (expired dalam 5 menit)
+        // Simpan OTP di Firestore
         await User.doc(userId).update({
             otp,
             otpExpires: new Date().getTime() + 5 * 60 * 1000 // OTP berlaku selama 5 menit
         });
 
-        // Kirim OTP via email (implementasi pengiriman email bisa menggunakan Nodemailer atau platform lain)
-        // Implementasi pengiriman email belum dibahas di sini
+        // Kirim OTP ke email pengguna
+        sendOtpEmail(email, otp);  // Mengirimkan OTP ke email pengguna
 
         res.status(200).json({ message: 'OTP telah dikirim' });
     } catch (error) {
@@ -104,8 +102,8 @@ const verifyOtp = async (req, res) => {
 
     try {
         const userSnapshot = await User.where('email', '==', email).get();
-        if (userSnapshot.empty || userSnapshot.docs[0].data().role !== 'admin') {
-            return res.status(404).json({ message: 'Admin tidak ditemukan' });
+        if (userSnapshot.empty) {
+            return res.status(404).json({ message: 'Pengguna tidak ditemukan' });
         }
 
         const user = userSnapshot.docs[0].data();
@@ -120,7 +118,7 @@ const verifyOtp = async (req, res) => {
         const userId = userSnapshot.docs[0].id;
         await User.doc(userId).update({
             otpVerified: true,
-            otp: null, // Hapus OTP setelah diverifikasi
+            otp: null,
             otpExpires: null
         });
 
