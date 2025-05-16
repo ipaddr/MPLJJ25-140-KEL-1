@@ -1,3 +1,4 @@
+// Import Flutter Material
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -6,7 +7,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF3EDE1), // Warna krem seperti pada desain
+      backgroundColor: const Color(0xFFF3EDE1),
       body: SafeArea(
         child: Column(
           children: [
@@ -30,7 +31,7 @@ class WelcomeScreen extends StatelessWidget {
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Georgia',
-                      color: Color(0xFF2D3C2E), // Hijau gelap
+                      color: Color(0xFF2D3C2E),
                     ),
                   ),
                   SizedBox(height: 8),
@@ -49,11 +50,11 @@ class WelcomeScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // Images (dibatasi agar tidak terlalu besar)
+            // Gambar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SizedBox(
-                height: 200, // Atur tinggi agar gambar tidak terlalu besar
+                height: 200,
                 child: Image.asset(
                   'assets/images/nutrismart_food.png',
                   fit: BoxFit.contain,
@@ -63,12 +64,12 @@ class WelcomeScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // Tombol: I have a NutriSmart Account
+            // I have a NutriSmart Account
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/login_user');
+                  Navigator.pushNamed(context, '/login_guru');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4C6B5B),
@@ -87,12 +88,12 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
 
-            // Tombol: I do not have a NutriSmart Account
+            // I do not have a NutriSmart Account
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/register_user');
+                  Navigator.pushNamed(context, '/register_guru');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF1D2C26),
@@ -105,12 +106,40 @@ class WelcomeScreen extends StatelessWidget {
                   'I DO NOT HAVE A NUTRISMART ACCOUNT',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
               ),
             ),
 
-            // Tombol: Login as Admin
+
+
+          // NEW BUTTON: I don't have a NutriSmart Admin account
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
+              child: OutlinedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/register_admin');
+                },
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: const Color(0xFF8FAF9D),
+                  side: const BorderSide(color: Colors.black),
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text(
+                  "I DON'T HAVE A NUTRISMART ADMIN ACCOUNT",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+           
+            // I have a nutrismart admin account
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
               child: OutlinedButton(
@@ -126,7 +155,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
                 child: const Text(
-                  'LOGIN AS ADMIN',
+                  'I HAVE A NUTRISMART ADMIN ACCOUNT',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -134,6 +163,8 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
+
+            
           ],
         ),
       ),

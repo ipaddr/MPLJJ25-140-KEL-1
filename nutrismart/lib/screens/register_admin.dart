@@ -50,7 +50,7 @@ class _RegisterAdminState extends State<RegisterAdmin> {
 
               // Image (gunakan asset image jika tersedia)
               Image.asset(
-                'assets/images/admin_register.png', // Ubah sesuai path kamu
+                'assets/images/register_admin.png', // Ubah sesuai path kamu
                 height: 180,
               ),
 
