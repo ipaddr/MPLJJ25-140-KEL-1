@@ -1,5 +1,8 @@
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = require('../config/.env');
+const dotenv = require('dotenv');
+
+// Load environment variables
+dotenv.config();
 
 // Middleware untuk memverifikasi token JWT
 const auth = (req, res, next) => {

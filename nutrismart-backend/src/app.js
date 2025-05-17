@@ -5,6 +5,9 @@ const dotenv = require('dotenv');
 // Load environment variables
 dotenv.config();
 
+// Inisialisasi Firebase - tambahkan baris ini
+require('./config/firebase');
+
 // Initialize Express app
 const app = express();
 const PORT = process.env.PORT || 5000;

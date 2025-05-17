@@ -1,5 +1,10 @@
 const nodemailer = require('nodemailer');
-const { EMAIL_USER, EMAIL_PASSWORD, EMAIL_FROM } = require('../config/.env');
+const dotenv = require('dotenv');
+dotenv.config(); 
+
+const EMAIL_SERVICE = process.env.EMAIL_SERVICE;
+const EMAIL_USER = process.env.EMAIL_USER;
+const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
 
 class EmailService {
   static async sendEmail(to, otp) {

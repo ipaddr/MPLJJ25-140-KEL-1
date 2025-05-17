@@ -3,7 +3,7 @@ const User = require('../models/User');  // Model User
 const OTPService = require('../services/emailService');  // Layanan untuk mengirim OTP
 const bcrypt = require('bcryptjs');
 
-// Register untuk Admin dan Guru
+// Register pengguna (Admin dan Guru)
 exports.register = async (req, res) => {
   const { email, password, role, name, phoneNumber, nik, address, school } = req.body;
   try {
@@ -66,12 +66,11 @@ exports.sendOTP = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Pengguna tidak ditemukan' });
     }
 
-    const otp = Math.floor(100000 + Math.random() * 900000); // Generate OTP 6 digit
-    await OTPService.sendEmail(email, otp);  // Kirim OTP melalui email
+    const otp = await AuthService.sendOTP(email);  // Kirim OTP melalui email
     return res.status(200).json({
       success: true,
       message: 'OTP telah dikirim ke email Anda',
-      otp // OTP disimpan sementara untuk verifikasi di frontend
+      otp
     });
   } catch (error) {
     console.error('Error during OTP sending:', error);

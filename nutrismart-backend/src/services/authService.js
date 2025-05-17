@@ -1,54 +1,48 @@
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET, JWT_EXPIRES_IN } = require('../config/.env');
-const { db } = require('../config/firebase');
-const OTPService = require('./emailService'); // OTP Service untuk email
-const bcrypt = require('bcryptjs');
+const dotenv = require('dotenv');
+dotenv.config();  // Memuat variabel lingkungan dari file .env
+
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
+const OTP_EXPIRES_IN = process.env.OTP_EXPIRES_IN; // Konfigurasi OTP expires
+
+const OTPService = require('./emailService'); // Layanan untuk mengirim OTP
 
 class AuthService {
+  // Generate JWT token
   static async generateJWT(user) {
     const payload = {
       userId: user.userId,
       role: user.role
     };
+
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
-    return { success: true, token };
+    return token;
   }
 
+  // Verify JWT token
   static async verifyJWT(token) {
     try {
       const decoded = jwt.verify(token, JWT_SECRET);
-      return { success: true, decoded };
+      return decoded;
     } catch (error) {
-      console.error('Error verifying JWT:', error);
-      return { success: false, error: 'Token is invalid or expired' };
+      throw new Error('Token tidak valid atau telah kedaluwarsa');
     }
   }
 
+  // Send OTP to email
   static async sendOTP(email) {
-    // Mengirim OTP ke email pengguna
-    const otp = Math.floor(100000 + Math.random() * 900000); // OTP 6 digit
-    await OTPService.sendEmail(email, otp);
-    return { success: true, otp }; // OTP disimpan sementara untuk verifikasi
+    const otp = Math.floor(100000 + Math.random() * 900000); // Generate 6 digit OTP
+    await OTPService.sendEmail(email, otp);  // Kirim OTP via email
+    return otp; // OTP yang dikirim sementara untuk verifikasi
   }
 
+  // Verify OTP
   static async verifyOTP(inputOtp, storedOtp) {
     if (inputOtp === storedOtp) {
-      return { success: true, message: 'OTP Verified' };
+      return { success: true, message: 'OTP valid' };
     } else {
-      return { success: false, error: 'Invalid OTP' };
-    }
-  }
-
-  static async validatePassword(userId, password) {
-    const userRef = await db.collection('users').doc(userId).get();
-    if (!userRef.exists) return { success: false, error: 'User not found' };
-
-    const user = userRef.data();
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (isMatch) {
-      return { success: true };
-    } else {
-      return { success: false, error: 'Incorrect password' };
+      return { success: false, message: 'OTP tidak valid' };
     }
   }
 }
