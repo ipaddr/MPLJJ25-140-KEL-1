@@ -1,24 +1,35 @@
-# Node.js
+# Dependensi
 node_modules/
+.pnp
+.pnp.js
 
-# Firebase Service Account Key (Do not commit this to version control)
-serviceAccountKey.json
-
-# Log files
-*.log
-
-# Environment variable files
+# Environment
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# MacOS system files
-.DS_Store
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# IDE settings (for VSCode, adjust if needed)
+# Editor
+.idea/
 .vscode/
+*.swp
+*.swo
 
-# Build files
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
 dist/
 build/
 
-# Flutter build files
-flutter/
+# Firebase
+serviceAccountKey.json
