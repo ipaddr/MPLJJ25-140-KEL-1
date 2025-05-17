@@ -1,22 +1,21 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const cors = require('cors'); // ✅ Tambahkan ini
-const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-
+const exploreRoutes = require('./routes/exploreRoutes');
+const guruRoutes = require('./routes/guruRoutes');
+const cors = require('cors');
 dotenv.config();
 
 const app = express();
 
-// ✅ Aktifkan CORS untuk semua origin
+// Middleware untuk parsing JSON
+app.use(express.json());
 app.use(cors());
 
-// ✅ Parsing JSON dari body request
-app.use(express.json());
-
-// Menggunakan rute untuk auth dan admin
-app.use('/auth', authRoutes);
+// Menyambungkan routes
 app.use('/admin', adminRoutes);
+app.use('/explore', exploreRoutes);
+app.use('/guru', guruRoutes);
 
 // Memulai server
 const PORT = process.env.PORT || 5000;
