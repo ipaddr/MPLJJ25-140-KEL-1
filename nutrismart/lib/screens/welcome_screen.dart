@@ -1,4 +1,3 @@
-// Import Flutter Material
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -11,7 +10,6 @@ class WelcomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Menu icon
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Align(
@@ -19,8 +17,6 @@ class WelcomeScreen extends StatelessWidget {
                 child: Icon(Icons.menu, size: 30, color: Colors.black),
               ),
             ),
-
-            // Logo & Slogan
             Padding(
               padding: const EdgeInsets.only(top: 0),
               child: Column(
@@ -47,10 +43,7 @@ class WelcomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-
             const SizedBox(height: 20),
-
-            // Gambar
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SizedBox(
@@ -61,15 +54,12 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 20),
-
-            // I have a NutriSmart Account
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/login_guru');
+                  Navigator.pushNamed(context, '/login');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4C6B5B),
@@ -87,8 +77,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-
-            // I do not have a NutriSmart Account
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
               child: ElevatedButton(
@@ -111,35 +99,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-
-
-
-          // NEW BUTTON: I don't have a NutriSmart Admin account
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
-              child: OutlinedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/register_admin');
-                },
-                style: OutlinedButton.styleFrom(
-                  backgroundColor: const Color(0xFF8FAF9D),
-                  side: const BorderSide(color: Colors.black),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: const Text(
-                  "I DON'T HAVE A NUTRISMART ADMIN ACCOUNT",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-           
-            // I have a nutrismart admin account
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
               child: OutlinedButton(
@@ -163,11 +122,34 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-
-            
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
+              child: OutlinedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/register_admin');
+                },
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: const Color(0xFF8FAF9D),
+                  side: const BorderSide(color: Colors.black),
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text(
+                  "I DON'T HAVE A NUTRISMART ADMIN ACCOUNT",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 }
+
+

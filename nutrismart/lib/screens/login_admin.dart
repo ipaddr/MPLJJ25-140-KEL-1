@@ -38,7 +38,7 @@ class _LoginAdminState extends State<LoginAdmin> {
             const SizedBox(height: 20),
             SizedBox(
               height: 200,
-              child: Image.asset('assets/Images/login_admin.png'),
+              child: Image.asset('assets/images/login_admin.png'),
             ),
             const SizedBox(height: 20),
             const Text(

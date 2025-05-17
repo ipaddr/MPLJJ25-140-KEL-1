@@ -8,6 +8,11 @@ import 'screens/splash_screen.dart';
 import 'modules/dashboard_admin.dart';
 import 'screens/welcome_screen.dart';
 import 'screens/dashboard_guru.dart';
+import 'screens/absensi_siswa.dart';
+import 'screens/tambah_siswa.dart';
+import 'screens/riwayat_pendistribusian.dart';
+import 'screens/explore.dart';
+import 'screens/pemantauan_gizi.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,27 +31,33 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      initialRoute: '/splash', // Tampilkan Splash Screen saat pertama dibuka
+      initialRoute: '/register_guru',
       routes: {
-        // Splash screen
+        // Splash & Welcome
         '/splash': (context) => const SplashScreen(),
-
-        // Welcome screen
         '/welcome': (context) => const WelcomeScreen(),
 
-        // Untuk user guru
+        // Guru
         '/login': (context) => const LoginGuru(),
         '/otp': (context) => const OTPScreen(),
         '/register_guru': (context) => const RegisterGuruPage(),
         '/dashboard_guru': (context) => const DashboardGuru(),
 
-        // Untuk admin
+        // Admin
         '/login_admin': (context) => const LoginAdmin(),
         '/register_admin': (context) => const RegisterAdmin(),
         '/dashboard': (context) => const DashboardAdmin(),
 
-        // Contoh halaman home
+        // Home Placeholder
         '/home': (context) => const MyHomePage(title: 'NutriSmart Home'),
+
+        // Fitur
+        '/absensi_siswa': (context) => const AbsensiSiswaPage(),
+        '/tambah_siswa': (context) => const TambahSiswa(),
+
+        // Tambahan
+        '/riwayat_pendistribusian': (context) => const RiwayatPendistribusian(),
+        '/explore': (context) => const ExplorePage(),
       },
     );
   }
@@ -54,7 +65,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
   final String title;
 
   @override
@@ -85,6 +95,33 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 20),
+
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, '/absensi_siswa');
+              },
+              icon: const Icon(Icons.person_search),
+              label: const Text('Buka Absensi Siswa'),
+            ),
+            const SizedBox(height: 10),
+
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, '/tambah_siswa');
+              },
+              icon: const Icon(Icons.person_add),
+              label: const Text('Tambah Siswa'),
+            ),
+            const SizedBox(height: 10),
+
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pushNamed(context, '/riwayat_pendistribusian');
+              },
+              icon: const Icon(Icons.history),
+              label: const Text('Riwayat Pendistribusian'),
             ),
           ],
         ),

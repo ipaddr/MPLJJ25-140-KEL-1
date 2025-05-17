@@ -12,10 +12,10 @@ class RegisterGuruPage extends StatefulWidget {
 class _RegisterGuruPageState extends State<RegisterGuruPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nikController = TextEditingController();
-  final TextEditingController namaController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController noTelpController = TextEditingController();
-  final TextEditingController sekolahController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController schoolController = TextEditingController();
 
   bool _obscurePassword = true;
 
@@ -25,10 +25,10 @@ class _RegisterGuruPageState extends State<RegisterGuruPage> {
     // Validasi form kosong
     if (emailController.text.isEmpty ||
         nikController.text.isEmpty ||
-        namaController.text.isEmpty ||
+        nameController.text.isEmpty ||
         passwordController.text.isEmpty ||
-        noTelpController.text.isEmpty ||
-        sekolahController.text.isEmpty) {
+        phoneNumberController.text.isEmpty ||
+        schoolController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Semua field harus diisi!")),
       );
@@ -39,10 +39,10 @@ class _RegisterGuruPageState extends State<RegisterGuruPage> {
     final bodyData = {
       "email": emailController.text,
       "nik": nikController.text,
-      "name": namaController.text,
+      "name": nameController.text,
       "password": passwordController.text,
-      "no_telp": noTelpController.text,
-      "sekolah": sekolahController.text,
+      "phoneNumber": phoneNumberController.text, 
+      "school": schoolController.text,
     };
 
     print("Mengirim data ke backend: $bodyData");
@@ -111,10 +111,10 @@ class _RegisterGuruPageState extends State<RegisterGuruPage> {
               // Input Fields
               _buildInputField(controller: emailController, icon: Icons.email, hint: "Email"),
               _buildInputField(controller: nikController, icon: Icons.credit_card, hint: "NIK"),
-              _buildInputField(controller: namaController, icon: Icons.person, hint: "Nama Lengkap"),
+              _buildInputField(controller: nameController, icon: Icons.person, hint: "Nama Lengkap"),
               _buildPasswordField(),
-              _buildInputField(controller: noTelpController, icon: Icons.phone, hint: "Nomor Telp"),
-              _buildInputField(controller: sekolahController, icon: Icons.school, hint: "Sekolah"),
+              _buildInputField(controller: phoneNumberController, icon: Icons.phone, hint: "Nomor Telp"),
+              _buildInputField(controller: schoolController, icon: Icons.school, hint: "Sekolah"),
 
               const SizedBox(height: 24),
 

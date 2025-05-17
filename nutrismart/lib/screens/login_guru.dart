@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class LoginGuru extends StatefulWidget {
   const LoginGuru({super.key});
@@ -15,7 +13,6 @@ class _LoginGuruState extends State<LoginGuru> {
   final passwordController = TextEditingController();
 
   bool _isLoading = false;
-  String? _errorMessage;
 
   @override
   void dispose() {
@@ -24,41 +21,18 @@ class _LoginGuruState extends State<LoginGuru> {
     super.dispose();
   }
 
-  Future<void> loginGuru(String email, String password) async {
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null;
-    });
-
-    try {
-      final response = await http.post(
-        Uri.parse('http://192.168.100.125:5000/auth/login'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'email': email, 'password': password}),
-      );
-
-      final data = jsonDecode(response.body);
-
-      if (response.statusCode == 200 && data['status'] == 'success') {
-        // Simpan token jika ada
-        String token = data['token'] ?? '';
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Login berhasil!')),
-        );
-
-        // TODO: Navigasi ke dashboard guru
-        Navigator.pushReplacementNamed(context, '/dashboard_guru');
-      } else {
-        setState(() {
-          _errorMessage = data['message'] ?? 'Login gagal';
-        });
-      }
-    } catch (e) {
+  void loginAndNavigate() async {
+    if (_formKey.currentState!.validate()) {
       setState(() {
-        _errorMessage = 'Terjadi kesalahan koneksi: $e';
+        _isLoading = true;
       });
-    } finally {
+
+      // Simulasi loading
+      await Future.delayed(const Duration(seconds: 1));
+
+      if (!mounted) return;
+      Navigator.pushReplacementNamed(context, '/dashboard_guru');
+
       setState(() {
         _isLoading = false;
       });
@@ -84,7 +58,7 @@ class _LoginGuruState extends State<LoginGuru> {
             const SizedBox(height: 20),
             SizedBox(
               height: 200,
-              child: Image.asset('assets/Images/login_admin.png'),
+              child: Image.asset('assets/images/login_admin.png'),
             ),
             const SizedBox(height: 20),
             const Text(
@@ -92,14 +66,6 @@ class _LoginGuruState extends State<LoginGuru> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
             ),
             const SizedBox(height: 20),
-            if (_errorMessage != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Text(
-                  _errorMessage!,
-                  style: const TextStyle(color: Colors.red),
-                ),
-              ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
               child: Form(
@@ -108,8 +74,12 @@ class _LoginGuruState extends State<LoginGuru> {
                   children: [
                     _buildTextFormField(Icons.email, 'Email', controller: emailController),
                     const SizedBox(height: 12),
-                    _buildTextFormField(Icons.lock, 'Password',
-                        controller: passwordController, obscureText: true),
+                    _buildTextFormField(
+                      Icons.lock,
+                      'Password',
+                      controller: passwordController,
+                      obscureText: true,
+                    ),
                     const SizedBox(height: 24),
                     SizedBox(
                       width: double.infinity,
@@ -121,13 +91,7 @@ class _LoginGuruState extends State<LoginGuru> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        onPressed: _isLoading
-                            ? null
-                            : () {
-                                if (_formKey.currentState!.validate()) {
-                                  loginGuru(emailController.text, passwordController.text);
-                                }
-                              },
+                        onPressed: _isLoading ? null : loginAndNavigate,
                         child: _isLoading
                             ? const CircularProgressIndicator(color: Colors.white)
                             : const Text(
@@ -143,7 +107,7 @@ class _LoginGuruState extends State<LoginGuru> {
                         const Text('Belum punya akun? '),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/register');
+                            Navigator.pushNamed(context, '/register_guru');
                           },
                           child: const Text(
                             'Register',
@@ -166,8 +130,12 @@ class _LoginGuruState extends State<LoginGuru> {
     );
   }
 
-  Widget _buildTextFormField(IconData icon, String hintText,
-      {bool obscureText = false, required TextEditingController controller}) {
+  Widget _buildTextFormField(
+    IconData icon,
+    String hintText, {
+    bool obscureText = false,
+    required TextEditingController controller,
+  }) {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
