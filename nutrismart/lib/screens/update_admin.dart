@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-class DashboardPage extends StatelessWidget {
-  const DashboardPage({super.key});
+class UpdateAdmin extends StatelessWidget {
+  const UpdateAdmin ({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -91,10 +91,10 @@ class DashboardPage extends StatelessWidget {
                 children: [
                   const Text("Jumlah Update per Sekolah", style: TextStyle(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  _schoolUpdate("SD Harapan", 5),
-                  _schoolUpdate("SD Cendikia", 8),
-                  _schoolUpdate("SD Tunas", 10),
-                  _schoolUpdate("SDIT Al Falah", 13),
+                  _schoolUpdate("SD Harapan", 2),
+                  _schoolUpdate("SD Cendikia", 7),
+                  _schoolUpdate("SD Tunas", 9),
+                  _schoolUpdate("SDIT Al Falah", 3),
                 ],
               ),
             ),

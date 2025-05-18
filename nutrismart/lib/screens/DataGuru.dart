@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'tambahdataguru.dart'; // Pastikan mengimpor halaman Tambahdataguru
+import 'package:nutrismart/screens/TambahDataGuru.dart';
+
+
 
 class DataGuru extends StatelessWidget {
-  final List<Map<String, String>> guruList = [
+  const DataGuru({super.key});
+
+  final List<Map<String, String>> guruList = const [
     {
-      'nama': 'Qhodry Andra Wijaya',
+      'nama': 'Timoty Ronald',
       'sekolah': 'Guru di SDN 1 Harapan',
       'gambar': 'assets/images/org1.png',
     },
     {
-      'nama': 'Agustini',
+      'nama': 'Harry Potter',
       'sekolah': 'Guru di SMA Cipta Bangsa',
       'gambar': 'assets/images/org2.png',
     },
@@ -21,16 +25,16 @@ class DataGuru extends StatelessWidget {
     {
       'nama': 'Jasmine Permata',
       'sekolah': 'Guru di SDN 3 Lestari',
-      'gambar': 'assets/images/org4.png',
+      'gambar': 'assets/images/org5.png',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF3F3F3),
+      backgroundColor: const Color(0xFFF3F3F3),
       appBar: AppBar(
-        title: Text('Data Guru'),
+        title: const Text('Data Guru'),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 0, 48, 44),
       ),
@@ -42,7 +46,7 @@ class DataGuru extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 hintText: 'Search here...',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -51,6 +55,7 @@ class DataGuru extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
+
             // Grid guru
             Expanded(
               child: GridView.count(
@@ -60,19 +65,21 @@ class DataGuru extends StatelessWidget {
                 children: guruList.map((guru) {
                   return Card(
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16)),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CircleAvatar(
                             radius: 30,
                             backgroundImage: AssetImage(guru['gambar']!),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             guru['nama']!,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
@@ -91,28 +98,38 @@ class DataGuru extends StatelessWidget {
                 }).toList(),
               ),
             ),
+
             // Tombol tambah data guru
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigasi ke halaman tambah guru
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Tambahdataguru()),
+                    MaterialPageRoute(
+                      builder: (context) => Tambahdataguru(),
+                    ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 0, 48, 44),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12))),
-                child: Text('Tambah Data Guru'),
+                  backgroundColor: const Color.fromARGB(255, 0, 48, 44),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text('Tambah Data Guru'),
               ),
-            )
+            ),
           ],
         ),
       ),
+
+      // Bottom Navigation (optional logic)
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0, // posisi tab saat ini (jika nanti ingin dinamis, bisa diubah)
+        onTap: (index) {
+          // Tambahkan navigasi jika perlu
+        },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Saya'),

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:nutrismart/screens/Dashboard.dart';
 
-class DashboardAdmin extends StatefulWidget {
-  const DashboardAdmin({super.key});
+class DashboardHome extends StatefulWidget {
+  const DashboardHome({super.key});
 
   @override
-  State<DashboardAdmin> createState() => _DashboardAdminState();
+  State<DashboardHome> createState() => _DashboardAdminState();
 }
 
-class _DashboardAdminState extends State<DashboardAdmin> {
+class _DashboardAdminState extends State<DashboardHome> {
   int _selectedIndex = 0;
 
-  // Dummy widget halaman
   final List<Widget> _pages = [
-    Center(child: Text("Beranda Dashboard")),
+    const DashboardPage(), // Dashboard
     Center(child: Text("Halaman Siswa")),
     Center(child: Text("Halaman Guru")),
+    Center(child: Text("Halaman Gizi")),
   ];
 
   @override
@@ -61,12 +62,12 @@ class _DashboardAdminState extends State<DashboardAdmin> {
               ),
             ),
             _buildDrawerItem(Icons.home, 'Dashboard'),
-            _buildDrawerItem(Icons.people, 'Data Siswa'),
-            _buildDrawerItem(Icons.person, 'Data Guru'),
-            _buildDrawerItem(Icons.calendar_today, 'Data Gizi'),
+            _buildDrawerItem(Icons.people, 'Data Siswa', '/Datasiswa'),
+            _buildDrawerItem(Icons.person, 'Data Guru', '/data-guru'),
+            _buildDrawerItem(Icons.local_hospital, 'Data Gizi', '/data-gizi'),
           ],
         ),
-     ),
+      ),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -87,15 +88,19 @@ class _DashboardAdminState extends State<DashboardAdmin> {
             label: 'Siswa',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            label: 'Explore',
+            icon: Icon(Icons.person),
+            label: 'Guru',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_hospital),
+            label: 'Gizi',
           ),
         ],
       ),
     );
   }
 
-  Widget _buildDrawerItem(IconData icon, String title) {
+  Widget _buildDrawerItem(IconData icon, String title, [String? routeName]) {
     return ListTile(
       leading: Icon(icon, color: Colors.white),
       title: Text(
@@ -103,8 +108,10 @@ class _DashboardAdminState extends State<DashboardAdmin> {
         style: const TextStyle(color: Colors.white),
       ),
       onTap: () {
-        Navigator.pop(context); // tutup drawer
-        // Tambahkan navigasi logika sesuai halaman yang diinginkan
+        Navigator.pop(context);
+        if (routeName != null) {
+          Navigator.pushNamed(context, routeName);
+        }
       },
     );
   }

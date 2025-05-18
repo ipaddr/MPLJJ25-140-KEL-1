@@ -29,6 +29,11 @@ flutter:
     - assets/images/org2.png
     - assets/images/org3.png
     - assets/images/org5.png
+    - assets/images/sekolah1.png
+    - assets/images/sekolah2.png
+    - assets/images/sekolah3.png
+    - assets/images/sekolah4.png
+
 
   fonts:
     - family: Sansita_Swashed
