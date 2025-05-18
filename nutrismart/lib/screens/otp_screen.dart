@@ -71,7 +71,7 @@ class OTPScreen extends StatelessWidget {
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  // Validasi & navigasi selanjutnya
+                   Navigator.pushNamed(context, '/login_admin');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF0F2F27),

@@ -100,6 +100,18 @@ class _LoginGuruState extends State<LoginGuru> {
                               ),
                       ),
                     ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/forgot_password');
+                      },
+                      child: const Text(
+                        'Lupa Password?',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 2, 117, 106),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                     const SizedBox(height: 12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

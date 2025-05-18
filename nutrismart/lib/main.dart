@@ -13,6 +13,12 @@ import 'screens/tambah_siswa.dart';
 import 'screens/riwayat_pendistribusian.dart';
 import 'screens/explore.dart';
 import 'screens/pemantauan_gizi.dart';
+import 'screens/forgot_password_page.dart';
+import 'screens/forgot_pass_otp.dart';
+import 'screens/forgot_pass_new_pass.dart';
+
+
+
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +37,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      initialRoute: '/register_guru',
+      initialRoute: '/reset_password',
       routes: {
         // Splash & Welcome
         '/splash': (context) => const SplashScreen(),
@@ -58,6 +64,12 @@ class MyApp extends StatelessWidget {
         // Tambahan
         '/riwayat_pendistribusian': (context) => const RiwayatPendistribusian(),
         '/explore': (context) => const ExplorePage(),
+        '/forgot_password': (context) => const ForgotPasswordPage(),
+        '/otp_verification': (context) => const OTPVerificationPage(),
+        '/reset_password': (context) => const ResetPasswordPage(),
+
+
+
       },
     );
   }

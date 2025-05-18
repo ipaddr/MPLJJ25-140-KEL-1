@@ -112,7 +112,7 @@ class _RegisterAdminState extends State<RegisterAdmin> {
                     ),
                   ),
                   onPressed: () {
-                    // TODO: Tambahkan aksi daftar
+                    Navigator.pushNamed(context, '/otp'); 
                   },
                   child: const Text(
                     'Daftar',
