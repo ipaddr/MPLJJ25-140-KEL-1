@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nutrismart/models/dashboard_home.dart';
 import 'package:nutrismart/screens/DataGuru.dart';
 import 'package:nutrismart/screens/DataGuruTersimpan.dart';
 import 'package:nutrismart/screens/TambahDataGuru.dart';
@@ -22,9 +21,12 @@ import 'screens/absensi_siswa.dart';
 import 'screens/tambah_siswa.dart';
 import 'screens/riwayat_pendistribusian.dart';
 import 'screens/explore.dart';
+import 'screens/pemantauan_gizi.dart';
 import 'screens/forgot_password_page.dart';
 import 'screens/forgot_pass_otp.dart';
 import 'screens/forgot_pass_new_pass.dart';
+import 'screens/logout_guru.dart';
+import 'screens/logout_admin.dart';
 
 void main() {
   runApp(const MyApp());
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      initialRoute: '/',
+      initialRoute: '/splash',
       onGenerateRoute: (settings) {
         final args = settings.arguments;
 
@@ -83,8 +85,6 @@ class MyApp extends StatelessWidget {
         }
 
         switch (settings.name) {
-          case '/':
-            return MaterialPageRoute(builder: (_) => const DashboardHome());
           case '/dashboard':
             return MaterialPageRoute(builder: (_) => const DashboardPage());
           case '/update-admin':
@@ -113,6 +113,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const DashboardGuru());
           case '/login_admin':
             return MaterialPageRoute(builder: (_) => const LoginAdmin());
+          case '/logout_admin':
+            return MaterialPageRoute(builder: (_) => const LogoutAdminPage());
           case '/register_admin':
             return MaterialPageRoute(builder: (_) => const RegisterAdmin());
           case '/home':
@@ -131,6 +133,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const OTPVerificationPage());
           case '/reset_password':
             return MaterialPageRoute(builder: (_) => const ResetPasswordPage());
+          case '/logout_guru':
+            return MaterialPageRoute(builder: (_) => const LogoutGuruPage());
           default:
             return _errorRoute('Halaman tidak ditemukan: ${settings.name}');
         }
