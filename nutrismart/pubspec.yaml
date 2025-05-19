@@ -13,7 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_fonts: ^6.1.0
   fl_chart: ^0.64.0
-  http: ^0.13.6
+  http: ^1.0.0
   animate_do: ^3.0.2
   image_picker: ^1.0.4
 
@@ -27,7 +27,7 @@ flutter:
 
   assets:
     - assets/images/login_admin.png
-    - assets/Images/register_admin.png
+    - assets/images/register_admin.png
     - assets/images/org1.png
     - assets/images/org2.png
     - assets/images/org3.png

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nutrismart/modules/dashboard_home.dart';
+import 'package:nutrismart/models/dashboard_home.dart';
 import 'package:nutrismart/screens/DataGuru.dart';
 import 'package:nutrismart/screens/DataGuruTersimpan.dart';
 import 'package:nutrismart/screens/TambahDataGuru.dart';
@@ -16,14 +16,12 @@ import 'screens/login_guru.dart';
 import 'screens/otp_screen.dart';
 import 'screens/register_guru.dart';
 import 'screens/splash_screen.dart';
-import 'modules/dashboard_admin.dart';
 import 'screens/welcome_screen.dart';
 import 'screens/dashboard_guru.dart';
 import 'screens/absensi_siswa.dart';
 import 'screens/tambah_siswa.dart';
 import 'screens/riwayat_pendistribusian.dart';
 import 'screens/explore.dart';
-import 'screens/pemantauan_gizi.dart';
 import 'screens/forgot_password_page.dart';
 import 'screens/forgot_pass_otp.dart';
 import 'screens/forgot_pass_new_pass.dart';
@@ -117,8 +115,6 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const LoginAdmin());
           case '/register_admin':
             return MaterialPageRoute(builder: (_) => const RegisterAdmin());
-          case '/dashboard_admin':
-            return MaterialPageRoute(builder: (_) => const DashboardAdmin());
           case '/home':
             return MaterialPageRoute(builder: (_) => const MyHomePage(title: 'NutriSmart Home'));
           case '/absensi_siswa':

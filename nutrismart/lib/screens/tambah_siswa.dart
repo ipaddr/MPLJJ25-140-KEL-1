@@ -132,10 +132,10 @@ class _TambahSiswaState extends State<TambahSiswa> {
                             backgroundImage: _imageFile != null
                                 ? FileImage(_imageFile!)
                                 : null,
+                            backgroundColor: Colors.teal.shade300,
                             child: _imageFile == null
                                 ? const Icon(Icons.camera_alt, size: 40, color: Colors.white)
                                 : null,
-                            backgroundColor: Colors.teal.shade300,
                           ),
                         ),
                       ),
