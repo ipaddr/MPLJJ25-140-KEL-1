@@ -5,9 +5,10 @@ dotenv.config();
 const EMAIL_SERVICE = process.env.EMAIL_SERVICE;
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
+const EMAIL_FROM = process.env.EMAIL_FROM;
 
 class EmailService {
-  static async sendEmail(to, otp) {
+  static async sendEmail(to, otp, type) {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -16,11 +17,15 @@ class EmailService {
       }
     });
 
+    const subject = type === 'registration' 
+      ? 'Kode OTP Registrasi NutriSmart'
+      : 'Kode OTP Reset Password NutriSmart';
+
     const mailOptions = {
       from: EMAIL_FROM,
       to: to,
-      subject: 'Your OTP Code',
-      text: `Your OTP code is: ${otp}`
+      subject: subject,
+      text: `Kode OTP ${type === 'registration' ? 'registrasi' : 'reset password'} Anda adalah: ${otp}\nKode ini akan kedaluwarsa dalam 10 menit.`
     };
 
     try {

@@ -1,5 +1,5 @@
 const admin = require('firebase-admin');
-const db = admin.firestore();
+const { db } = require('../config/firebase');
 const { USER_ROLES } = require('../config/constants');
 const bcrypt = require('bcryptjs');
 
@@ -117,6 +117,17 @@ class User {
     } catch (error) {
       console.error('Error comparing password:', error);
       return false;
+    }
+  }
+
+  static async updateUser(userId, updateData) {
+    try {
+      const userRef = db.collection('users').doc(userId);
+      await userRef.update(updateData);
+      return true;
+    } catch (error) {
+      console.error('Error updating user:', error);
+      throw error;
     }
   }
 }

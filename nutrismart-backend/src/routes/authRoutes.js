@@ -1,21 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const AuthController = require('../controllers/authController');
-const { validateCreateUser } = require('../middleware/validation');  // Middleware untuk validasi input
+const { validateCreateUser } = require('../middleware/validation');
 
-// Rute untuk login
+// Authentication routes
 router.post('/login', AuthController.login);
-
-// Rute untuk registrasi pengguna (admin/guru)
 router.post('/register', validateCreateUser, AuthController.register);
 
-// Rute untuk mengirim OTP ke email pengguna
-router.post('/send-otp', AuthController.sendOTP);
-
-// Rute untuk memverifikasi OTP (gunakan middleware auth jika perlu)
+// OTP routes
+router.post('/send-registration-otp', AuthController.sendRegistrationOTP);
+router.post('/send-reset-otp', AuthController.sendPasswordResetOTP);
 router.post('/verify-otp', AuthController.verifyOTP);
 
-// Rute untuk reset password
+// Password reset
 router.post('/reset-password', AuthController.resetPassword);
 
 module.exports = router;
