@@ -26,17 +26,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/login_admin.png
-    - assets/images/register_admin.png
-    - assets/images/org1.png
-    - assets/images/org2.png
-    - assets/images/org3.png
-    - assets/images/org4.png
-    - assets/images/org5.png
-    - assets/images/sekolah1.png
-    - assets/images/sekolah2.png
-    - assets/images/sekolah3.png
-    - assets/images/sekolah4.png
+    - assets/images/
 
   fonts:
     - family: Sansita_Swashed
