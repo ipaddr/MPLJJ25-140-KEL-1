@@ -4,15 +4,28 @@ const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'NutriSmart API',
+      title: 'NutriSmart API Documentation',
       version: '1.0.0',
-      description: 'NutriSmart API Documentation'
+      description: 'API documentation for NutriSmart application'
     },
     servers: [
       {
-        url: 'http://localhost:5000'
+        url: process.env.API_URL || 'http://localhost:5000',
+        description: process.env.NODE_ENV === 'production' ? 'Production server' : 'Development server'
       }
-    ]
+    ],
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      }
+    }
   },
   apis: ['./src/routes/*.js']
 };
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+module.exports = swaggerDocs;

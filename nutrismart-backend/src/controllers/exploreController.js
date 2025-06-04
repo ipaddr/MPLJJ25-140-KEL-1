@@ -1,106 +1,100 @@
-const Explore = require('../models/Explore');  // Model untuk konten edukasi
+const Explore = require('../models/Explore');
+const { RESPONSE_MESSAGES } = require('../config/constants');
 
-// Menambah konten edukasi baru (artikel/video)
+// Create educational content
 exports.createExploreContent = async (req, res) => {
-  const { title, content, type, url, tags } = req.body;
-
   try {
-    // Validasi input konten edukasi
-    if (!title || !content || !type || !url) {
-      return res.status(400).json({ success: false, message: 'Semua field wajib diisi' });
-    }
-
-    const exploreContent = new Explore({
+    const { title, content, type, thumbnailUrl, videoUrl, tags } = req.body;
+    const newContent = await Explore.create({
       title,
       content,
       type,
-      url,
-      tags
+      thumbnailUrl,
+      videoUrl,
+      tags,
+      createdBy: req.user.uid
     });
-
-    await exploreContent.save();
-    return res.status(201).json({
-      success: true,
-      message: 'Konten edukasi berhasil ditambahkan',
-      exploreId: exploreContent.id
-    });
+    res.status(201).json({ success: true, data: newContent });
   } catch (error) {
-    console.error('Error creating explore content:', error);
-    return res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
-// Mengambil seluruh konten edukasi
+// Search educational content
+exports.searchExploreContent = async (req, res) => {
+  const { query, type, tags } = req.query;
+  
+  try {
+    const searchCriteria = {};
+    
+    if (query) {
+      searchCriteria.title = new RegExp(query, 'i');
+    }
+    
+    if (type) {
+      searchCriteria.type = type;
+    }
+    
+    if (tags) {
+      searchCriteria.tags = { $in: tags.split(',') };
+    }
+
+    const content = await Explore.find(searchCriteria);
+    
+    return res.status(200).json({
+      success: true,
+      data: content
+    });
+  } catch (error) {
+    console.error('Error searching explore content:', error);
+    return res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
 exports.getExploreContent = async (req, res) => {
   try {
-    const exploreContents = await Explore.findAll();
-    return res.status(200).json({
-      success: true,
-      data: exploreContents
-    });
+    const content = await Explore.getAll();
+    res.status(200).json({ success: true, data: content });
   } catch (error) {
-    console.error('Error fetching explore content:', error);
-    return res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
-// Mengambil konten edukasi berdasarkan ID
 exports.getExploreContentById = async (req, res) => {
-  const { id } = req.params;
   try {
-    const exploreContent = await Explore.findById(id);
-    if (!exploreContent) {
-      return res.status(404).json({ success: false, message: 'Konten edukasi tidak ditemukan' });
+    const content = await Explore.getById(req.params.id);
+    if (!content) {
+      return res.status(404).json({ success: false, error: 'Content not found' });
     }
-
-    return res.status(200).json({
-      success: true,
-      data: exploreContent
-    });
+    res.status(200).json({ success: true, data: content });
   } catch (error) {
-    console.error('Error fetching explore content by ID:', error);
-    return res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
-// Memperbarui konten edukasi berdasarkan ID
 exports.updateExploreContent = async (req, res) => {
-  const { id } = req.params;
-  const { title, content, type, url, tags } = req.body;
-
   try {
-    const exploreContent = await Explore.findById(id);
-    if (!exploreContent) {
-      return res.status(404).json({ success: false, message: 'Konten edukasi tidak ditemukan' });
+    const updated = await Explore.update(req.params.id, req.body);
+    if (!updated) {
+      return res.status(404).json({ success: false, error: 'Content not found' });
     }
-
-    await Explore.updateExploreContent(id, { title, content, type, url, tags });
-    return res.status(200).json({
-      success: true,
-      message: 'Konten edukasi berhasil diperbarui'
-    });
+    res.status(200).json({ success: true, data: updated });
   } catch (error) {
-    console.error('Error updating explore content:', error);
-    return res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
 
-// Menghapus konten edukasi berdasarkan ID
 exports.deleteExploreContent = async (req, res) => {
-  const { id } = req.params;
   try {
-    const exploreContent = await Explore.findById(id);
-    if (!exploreContent) {
-      return res.status(404).json({ success: false, message: 'Konten edukasi tidak ditemukan' });
+    const deleted = await Explore.delete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ success: false, error: 'Content not found' });
     }
-
-    await Explore.deleteExploreContent(id);
-    return res.status(200).json({
-      success: true,
-      message: 'Konten edukasi berhasil dihapus'
-    });
+    res.status(200).json({ success: true, data: {} });
   } catch (error) {
-    console.error('Error deleting explore content:', error);
-    return res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({ success: false, error: error.message });
   }
 };
