@@ -4,7 +4,7 @@ import 'package:nutrismart/screens/DataGuruTersimpan.dart';
 import 'package:nutrismart/screens/TambahDataGuru.dart';
 import 'package:nutrismart/screens/Dashboard.dart';
 import 'package:nutrismart/screens/DataGizi.dart';
-import 'package:nutrismart/screens/DataSiswa.dart';
+import 'screens/DataSiswa.dart';
 import 'package:nutrismart/screens/student_name_class.dart';
 import 'package:nutrismart/screens/student_nutrition_detail.dart';
 import 'package:nutrismart/screens/student_nutrition_from.dart';

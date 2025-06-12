@@ -72,9 +72,8 @@ class _LoginAdminState extends State<LoginAdmin> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // Jika valid, lanjut ke backend
-                            print('Email: ${emailController.text}');
-                            print('Password: ${passwordController.text}');
+                            // Jika valid, langsung ke dashboard
+                            Navigator.pushNamed(context, '/dashboard_home');
                           }
                         },
                         child: const Text(
