@@ -7,11 +7,15 @@ class StudentNutritionForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Colors.teal[700], // Latar belakang gelap
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       title: const Text(
         "Tambah Data Siswa",
         textAlign: TextAlign.center,
-        style: TextStyle(fontWeight: FontWeight.bold),
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.white, // Ubah warna teks menjadi putih
+        ),
       ),
       content: SingleChildScrollView(
         child: Column(
@@ -31,6 +35,8 @@ class StudentNutritionForm extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            foregroundColor: Colors.white, // Tombol putih
+            side: const BorderSide(color: Colors.white), // Border putih
           ),
           child: const Text("Batal"),
         ),
@@ -39,6 +45,8 @@ class StudentNutritionForm extends StatelessWidget {
             // Simpan logika di sini
           },
           style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white, // Tombol putih
+            foregroundColor: Colors.teal[800], // Teks tombol
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           ),
           child: const Text("Simpan"),
@@ -59,7 +67,7 @@ class StudentNutritionForm extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           filled: true,
-          fillColor: Colors.grey.shade100,
+          fillColor: Colors.white, // Warna field input
         ),
       ),
     );

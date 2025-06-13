@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
       case '/dashboard_admin': 
         return _page(const DashboardAdmin());
       case '/dashboard_adminPilihan':
-           return _page(const DashboardAdminPilihan());  
+  return _page(const DashboardAdminPilihan());  
       case '/student-name-class':
         if (args is Map<String, dynamic>) {
           return _page(StudentNameClass(

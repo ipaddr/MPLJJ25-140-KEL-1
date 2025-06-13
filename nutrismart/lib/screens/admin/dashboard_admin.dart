@@ -11,16 +11,17 @@ class DashboardAdmin extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-  icon: const Icon(Icons.menu, color: Colors.black),
-  onPressed: () {
-    Navigator.pushNamed(context, '/dashboard_adminPilihan');
-  },
-),
-
+          icon: const Icon(Icons.menu, color: Colors.black),
+          onPressed: () {
+            Navigator.pushNamed(context, '/dashboard_adminPilihan');
+          },
+        ),
         actions: const [
           Icon(Icons.notifications_none, color: Colors.black),
           SizedBox(width: 16),
-          CircleAvatar(backgroundColor: Color(0xFFD1E7DD), child: Icon(Icons.person, color: Colors.black)),
+          CircleAvatar(
+              backgroundColor: Color(0xFFD1E7DD),
+              child: Icon(Icons.person, color: Colors.black)),
           SizedBox(width: 16),
         ],
       ),
@@ -59,7 +60,10 @@ class DashboardAdmin extends StatelessWidget {
             const SizedBox(height: 24),
             _SectionCard(
               title: 'Perkembangan Input Data Gizi Bulanan',
-              child: const Center(child: Icon(Icons.show_chart, size: 100, color: Colors.black54)),
+              child: const Center(
+                child: Icon(Icons.show_chart,
+                    size: 100, color: Colors.black54),
+              ),
             ),
             const SizedBox(height: 24),
             Row(
@@ -91,14 +95,16 @@ class DashboardAdmin extends StatelessWidget {
                           color: Color(0xFFF9E5B4),
                           child: Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: Text('⚠️ Sekolah X belum mengupdate data minggu ini'),
+                            child: Text(
+                                '⚠️ Sekolah X belum mengupdate data minggu ini'),
                           ),
                         ),
                         Card(
                           color: Color(0xFFD1E7DD),
                           child: Padding(
                             padding: EdgeInsets.all(8.0),
-                            child: Text('✅ Guru Y sudah memverifikasi akun'),
+                            child: Text(
+                                '✅ Guru Y sudah memverifikasi akun'),
                           ),
                         ),
                       ],
@@ -126,8 +132,16 @@ class DashboardAdmin extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
         selectedItemColor: const Color(0xFF2C4A3D),
         unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.pushNamed(context, '/absensi');
+          } else if (index == 2) {
+            Navigator.pushNamed(context, '/explore');
+          }
+        },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Absensi'),
@@ -143,7 +157,8 @@ class _InfoCard extends StatelessWidget {
   final String label;
   final String value;
 
-  const _InfoCard({required this.icon, required this.label, required this.value});
+  const _InfoCard(
+      {required this.icon, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +199,11 @@ class _SectionCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF2C4A3D))),
+            Text(title,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Color(0xFF2C4A3D))),
             const SizedBox(height: 8),
             child,
           ],
