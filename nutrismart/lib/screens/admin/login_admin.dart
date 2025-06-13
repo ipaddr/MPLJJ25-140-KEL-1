@@ -72,8 +72,8 @@ class _LoginAdminState extends State<LoginAdmin> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // Jika valid, langsung ke dashboard
-                            Navigator.pushNamed(context, '/dashboard_home');
+                            // ✅ Langsung ke dashboard admin
+                            Navigator.pushNamed(context, '/dashboard_admin');
                           }
                         },
                         child: const Text(
@@ -89,7 +89,7 @@ class _LoginAdminState extends State<LoginAdmin> {
                         const Text('Belum punya akun? '),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/register');
+                            Navigator.pushNamed(context, '/register_admin');
                           },
                           child: const Text(
                             'Register',

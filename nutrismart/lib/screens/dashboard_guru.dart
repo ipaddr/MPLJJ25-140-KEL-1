@@ -4,6 +4,8 @@ import 'package:nutrismart/screens/absensi_siswa.dart';
 import 'package:nutrismart/screens/explore.dart';
 import 'package:nutrismart/screens/riwayat_pendistribusian.dart';
 import 'package:nutrismart/screens/pemantauan_gizi.dart';
+import 'package:nutrismart/screens/popup_keluar.dart';
+import 'package:nutrismart/screens/profil_guru.dart';
 
 class DashboardGuru extends StatefulWidget {
   const DashboardGuru({super.key});
@@ -36,6 +38,32 @@ class _DashboardGuruState extends State<DashboardGuru> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dashboard Guru'),
+        backgroundColor: Colors.teal,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person),
+            tooltip: 'Profil',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilGuruPage()),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Keluar',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PopupKeluar()),
+              );
+            },
+          ),
+        ],
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -97,17 +125,16 @@ class _DashboardGuruState extends State<DashboardGuru> {
               const SizedBox(height: 8),
               Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Tambahkan aksi jika diperlukan
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.teal.shade700,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
-                    'Lihat Detail',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  child: const Text('Lihat Detail', style: TextStyle(color: Colors.white)),
                 ),
               ),
               const SizedBox(height: 20),
@@ -178,14 +205,22 @@ class _DashboardGuruState extends State<DashboardGuru> {
               const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Kamu mungkin suka',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
-                  Text(
-                    'Lihat semua',
-                    style: TextStyle(color: Colors.teal),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ExplorePage()),
+                      );
+                    },
+                    child: const Text(
+                      'Lihat semua',
+                      style: TextStyle(color: Colors.teal),
+                    ),
                   ),
                 ],
               ),
@@ -213,6 +248,8 @@ class _DashboardGuruState extends State<DashboardGuru> {
       ),
     );
   }
+
+  // --- Komponen UI ---
 
   Widget _menuButton(String title, String imagePath) {
     return GestureDetector(
