@@ -59,7 +59,7 @@ class WelcomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 8),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/login');
+                  Navigator.pushNamed(context, '/login'); 
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4C6B5B),
